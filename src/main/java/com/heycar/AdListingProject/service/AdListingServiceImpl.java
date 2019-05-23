@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -87,7 +88,10 @@ public class AdListingServiceImpl implements AdListingService {
 	}
 
 	@Override
-	public List<AdListing> getAll() {
+	public List<AdListing> getAll(Specification<AdListing> spec) {
+		if (spec != null)
+			return adListingRepo.findAll(spec);
+
 		return adListingRepo.findAllByOrderByPostedAtDesc();
 	}
 

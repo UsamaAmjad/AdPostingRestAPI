@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.heycar.AdListingProject.model.AdListing;
+import com.heycar.AdListingProject.search.AdListingSpecification;
 import com.heycar.AdListingProject.service.AdListingService;
 
 @RestController
@@ -81,6 +83,19 @@ public class AdLisitngController {
 			@RequestParam(value = "model", required = false) String model,
 			@RequestParam(value = "year", required = false) String year,
 			@RequestParam(value = "color", required = false) String color) {
-		return adListingService.getAll();
+
+		if (make == null && model == null && color == null && year == null)
+			return adListingService.getAll(null);
+
+		AdListing searchAd = new AdListing();
+		searchAd.setMake(make == null ? "" : make.trim());
+		searchAd.setModel(model == null ? "" : model.trim());
+		searchAd.setColor(color == null ? "" : color.trim());
+		searchAd.setYear(year == null ? 0 : Integer.parseInt(year));
+
+		Specification<AdListing> spec = new AdListingSpecification(searchAd);
+
+		return adListingService.getAll(spec);
+//		return adListingService.getAll();
 	}
 }

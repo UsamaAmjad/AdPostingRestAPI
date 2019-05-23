@@ -11,6 +11,7 @@ import com.heycar.AdListingProject.model.AdListing;
 
 @Repository
 public interface AdListingRepo extends PagingAndSortingRepository<AdListing, Integer>, JpaSpecificationExecutor<AdListing>  {
+	
 	List<AdListing> findAllByOrderByPostedAtDesc();
 
 	Optional<AdListing> findByCodeAndDealer_Id(String code, int dealerId);
