@@ -30,17 +30,29 @@ import com.heycar.AdListingProject.service.AdListingService;
 
 @RestController
 public class AdLisitngController {
-	
+
 	private static Logger LOG = LoggerFactory.getLogger(AdLisitngController.class);
 
 	@Autowired
 	private AdListingService adListingService;
 
+	/**
+	 * Return Single AdListing by ID
+	 * 
+	 * @param listing_id
+	 * @return
+	 */
 	@GetMapping("/vehicle_listings/{listing_id}")
 	public AdListing getAdLisitng(@PathVariable int listing_id) {
 		return adListingService.findById(listing_id);
 	}
 
+	/**
+	 * Save AdListing in DB
+	 * 
+	 * @param listing
+	 * @return
+	 */
 	@PostMapping("/vehicle_listings")
 	public ResponseEntity<AdListing> postJsonListing(@Valid @RequestBody AdListing listing) {
 		System.out.println(listing.toString());
@@ -52,15 +64,29 @@ public class AdLisitngController {
 		return ResponseEntity.created(location).body(savedLisitng);
 	}
 
+	/**
+	 * Update existing records, throws not found in case of invalid ID
+	 * 
+	 * @param adListing
+	 * @param listing_id
+	 * @return
+	 */
 	@PutMapping("/vehicle_listings/{listing_id}")
 	public AdListing updateMessage(@Valid @RequestBody AdListing adListing, @PathVariable int listing_id) {
 		return adListingService.update(adListing, listing_id);
 	}
 
+	/**
+	 * Upload CSV file for batch data
+	 * 
+	 * @param dealer_id
+	 * @param csvFile
+	 * @return
+	 */
 	@PostMapping("/upload_csv/{dealer_id}")
 	public List<AdListing> postCsvListing(@PathVariable int dealer_id, @RequestParam("file") MultipartFile csvFile) {
 		System.out.println("Uploading CSV: " + dealer_id);
-		adListingService.readFile(csvFile);
+
 		if (csvFile.isEmpty()) {
 			return null;
 		}
@@ -79,6 +105,15 @@ public class AdLisitngController {
 		return null;
 	}
 
+	/**
+	 * Search accepts optional params otherwise return all records
+	 * 
+	 * @param make
+	 * @param model
+	 * @param year
+	 * @param color
+	 * @return
+	 */
 	@GetMapping("/search")
 	public List<AdListing> getLisitngs(@RequestParam(value = "make", required = false) String make,
 			@RequestParam(value = "model", required = false) String model,
@@ -98,5 +133,5 @@ public class AdLisitngController {
 
 		return adListingService.getAll(spec);
 	}
-	
+
 }

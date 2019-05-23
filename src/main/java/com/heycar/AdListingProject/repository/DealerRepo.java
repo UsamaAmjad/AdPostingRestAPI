@@ -9,5 +9,6 @@ import com.heycar.AdListingProject.model.Dealer;
 
 @Repository
 public interface DealerRepo extends PagingAndSortingRepository<Dealer, Integer> {
+	
 	Optional<Dealer> findByUsername(String username);
 }

@@ -46,7 +46,7 @@ public class AdListingReposTests {
 		Assert.assertNotNull(result);
 		Assert.assertEquals(4, result.size());
 	}
-	
+
 	@Test
 	public void shouldFindByCodeAndDealerId() {
 

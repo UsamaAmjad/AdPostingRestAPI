@@ -9,6 +9,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.heycar.AdListingProject.model.AdListing;
 
+/**
+ * This class is used to create dynamic query for Search
+ *
+ */
 public class AdListingSpecification implements Specification<AdListing> {
 
 	private static final long serialVersionUID = 9173114549068310685L;

@@ -1,6 +1,7 @@
 package com.heycar.AdListingProject.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class DealerServiceTests {
 
 		assertEquals(found.getUsername(), username);
 	}
-	
+
 	@Test
 	public void whenValidId_thenDealerShouldBeFound() {
 		int id = 10000;

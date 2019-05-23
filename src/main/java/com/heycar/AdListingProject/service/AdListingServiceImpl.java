@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.heycar.AdListingProject.model.AdListing;
 import com.heycar.AdListingProject.model.Dealer;
@@ -93,11 +92,6 @@ public class AdListingServiceImpl implements AdListingService {
 			return adListingRepo.findAll(spec);
 
 		return adListingRepo.findAllByOrderByPostedAtDesc();
-	}
-
-	@Override
-	public String readFile(MultipartFile csvFile) {
-		return "";
 	}
 
 }

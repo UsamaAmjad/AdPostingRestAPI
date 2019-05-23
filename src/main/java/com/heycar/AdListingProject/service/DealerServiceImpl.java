@@ -37,6 +37,7 @@ public class DealerServiceImpl implements DealerService {
 			LOG.debug("Dealer not found: {}", username);
 			throw new EntityNotFoundException("Dealer not found: " + username);
 		}
+
 		return dealer.get();
 	}
 

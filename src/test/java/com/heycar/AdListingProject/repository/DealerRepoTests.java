@@ -29,7 +29,7 @@ public class DealerRepoTests {
 		assertTrue(result.isPresent());
 		assertEquals(result.get().getUsername(), "alex");
 	}
-	
+
 	@Test
 	public void shouldReturnAllDealers() {
 
