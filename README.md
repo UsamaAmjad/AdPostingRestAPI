@@ -16,15 +16,15 @@ mvn clean test
 ```
 
  Below are the APIs that are implemented in this project. Postman API collection is included please import it for testing.
-```sh
- METHOD  URI 
- ------  ------ 
- GET    /search							- Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`
- GET	/vehicle_listings/{listing_id}	- Get AdListing by `ID`
- POST   /vehicle_listings       		- Add new listing or update exisiting if there is same `Code` from same `Dealer`
- PUT    /vehicle_listings   			- Update an exisiting AdListing
- POST 	/upload_csv/{dealer_id} 		- Upload AdListing from `CSV` file 
-```
+ 
+ | METHOD| URI | Description |
+ |-------|-----|-------------|
+ |GET   | /search					| Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`|
+ |GET   | /vehicle_listings/{listing_id}| Get AdListing by `ID`|
+ |POST  | /vehicle_listings       		    | Add new listing or update exisiting if there is same `Code` from same `Dealer`|
+ |PUT   | /vehicle_listings   			       | Update an exisiting AdListing|
+ |POST 	| /upload_csv/{dealer_id} 		    | Upload AdListing from `CSV` file |
+
  
 ## Docker Setup
 Docker file is also added in the project. Run the below commands in terminal to deploy project inside the docker container.
