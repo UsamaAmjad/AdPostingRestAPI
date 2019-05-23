@@ -1,5 +1,8 @@
 package com.heycar.AdListingProject.model;
 
+import java.time.Instant;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +13,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
-public class Lisitng {
+@Entity
+public class AdListing {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -23,16 +27,18 @@ public class Lisitng {
 	private String model;
 	private double kW;
 	@NotNull(message = "Year cannot be empty")
-	@Range(min=0, max=90, message = "Invalid year")
+	@Range(min = 1900, max = 2020, message = "Invalid year")
 	private int year;
 	@NotBlank(message = "Color cannot be empty")
 	private String color;
 	@NotNull(message = "Price cannot be empty")
 	private double price;
 
+	private Instant postedAt;
+
 	@ManyToOne
 	@JoinColumn(name = "dealer_id")
-//	@NotNull(message = "Dealer cannot be Null")
+	@NotNull(message = "Dealer cannot be Null")
 	private Dealer dealer;
 
 	public Integer getId() {
@@ -107,10 +113,18 @@ public class Lisitng {
 		this.dealer = dealer;
 	}
 
+	public Instant getPostedAt() {
+		return postedAt;
+	}
+
+	public void setPostedAt(Instant postedAt) {
+		this.postedAt = postedAt;
+	}
+
 	@Override
 	public String toString() {
-		return "Lisitng [id=" + id + ", code=" + code + ", make=" + make + ", model=" + model + ", kW=" + kW + ", year="
-				+ year + ", color=" + color + ", price=" + price + "]";
+		return "AdListing [id=" + id + ", code=" + code + ", make=" + make + ", model=" + model + ", kW=" + kW
+				+ ", year=" + year + ", color=" + color + ", price=" + price + ", postedAt=" + postedAt + "]";
 	}
 
 	@Override
@@ -126,6 +140,7 @@ public class Lisitng {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + ((postedAt == null) ? 0 : postedAt.hashCode());
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + year;
@@ -140,7 +155,7 @@ public class Lisitng {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Lisitng other = (Lisitng) obj;
+		AdListing other = (AdListing) obj;
 		if (code == null) {
 			if (other.code != null)
 				return false;
@@ -172,6 +187,11 @@ public class Lisitng {
 			if (other.model != null)
 				return false;
 		} else if (!model.equals(other.model))
+			return false;
+		if (postedAt == null) {
+			if (other.postedAt != null)
+				return false;
+		} else if (!postedAt.equals(other.postedAt))
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;

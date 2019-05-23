@@ -1,8 +1,8 @@
-# Car Ad Listing Backend API
+# Car Ad Listing Backend REST API
 
  **Author:** Osama Amjad 
  
- A simple Ad Listing API demostration built using `Spring Boot 2`, `Spring MVC`, `Spring Data JPA`, and `Spring Security`.
+ A simple Ad Listing API demostration built using `Spring Boot 2`, `Spring MVC`, `Spring Data JPA`, and `Docker`.
  
 ## Setup Notes
 
@@ -19,21 +19,12 @@ mvn clean test
 ```sh
  METHOD  URI 
  ------  ------ 
- GET    /search					- Optional request params make, model, year, color
- POST   /vehicle_listings       - Requires authentication
- PUT    /vehicle_listings   	- Requires authentication
- POST 	/upload_csv/{dealer_id} - Requires authentication
+ GET    /search							- Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`
+ GET	/vehicle_listings/{listing_id}	- Get AdListing by `ID`
+ POST   /vehicle_listings       		- Add new listing or update exisiting if there is same `Code` from same `Dealer`
+ PUT    /vehicle_listings   			- Update an exisiting AdListing
+ POST 	/upload_csv/{dealer_id} 		- Upload AdListing from `CSV` file 
 ```
- #### Test User Details
- Two in-memory users created for testing along with some data. Add username and password in REST call with basic Authorization header:
- 
- **User 1**
- Username: alex
- Pass: alex
- 
-  **User 2**
- Username: mike
- Pass: mike
  
 ## Docker Setup
 Docker file is also added in the project. Run the below commands in terminal to deploy project inside the docker container.
@@ -44,7 +35,10 @@ Docker file is also added in the project. Run the below commands in terminal to 
  ```
  
 ## Considerations
-	- I have used H2 database to keep it simple
-	- Basic authentication is used to protect secured resources.
-	- Basic file reading, I would prefer proper csv schema genration from Headers for better validation
-	- I prefer separate DTOs for complex (where differnet fields are required for both) json request and response but it wasnt required for the sake of this project
+- I have used `H2` database to keep it simple
+- Spring security is not used because it was out of scope for this project
+- `Authentication` and `authorization` is not covered, hence anyone can add/update records. In Prod users should only allowed to update/delete their own records
+- Basic file reading, in Production I would prefer proper csv schema genration from Headers for better validation
+- I just loop through the `CSV` records to save them in DB. Batch `inserts` would be preferable in prod
+- I prefer separate `DTOs` for complex (where differnet fields are required for both) json request and response but it wasnt required for current models
+- I have added simple search but in prod it should be Elasticsearch/Apache Solr for fast searching

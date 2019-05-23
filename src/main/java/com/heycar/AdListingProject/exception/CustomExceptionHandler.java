@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -122,17 +121,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		String error = ex.getMessage();
 
 		ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
-		return new ResponseEntity<Object>(errorMessage, new HttpHeaders(), errorMessage.getStatus());
-	}
-	
-	/**
-	 * This exception is thrown when user is Unauthorize to access/change resource
-	 */
-	@ExceptionHandler({ AccessDeniedException.class })
-	public ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex, WebRequest request) {
-		String error = ex.getMessage();
-
-		ErrorMessage errorMessage = new ErrorMessage(HttpStatus.FORBIDDEN, ex.getLocalizedMessage(), error);
 		return new ResponseEntity<Object>(errorMessage, new HttpHeaders(), errorMessage.getStatus());
 	}
 	
