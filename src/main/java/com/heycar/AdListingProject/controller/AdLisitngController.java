@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,8 @@ import com.heycar.AdListingProject.service.AdListingService;
 
 @RestController
 public class AdLisitngController {
+	
+	private static Logger LOG = LoggerFactory.getLogger(AdLisitngController.class);
 
 	@Autowired
 	private AdListingService adListingService;
@@ -49,10 +52,9 @@ public class AdLisitngController {
 		return ResponseEntity.created(location).body(savedLisitng);
 	}
 
-	@PutMapping("/vehicle_listings/{dealer_id}")
-	public AdListing updateMessage(@Valid @RequestBody AdListing adListing, @PathVariable int dealer_id,
-			Principal principal) {
-		return adListingService.update(adListing, dealer_id);
+	@PutMapping("/vehicle_listings/{listing_id}")
+	public AdListing updateMessage(@Valid @RequestBody AdListing adListing, @PathVariable int listing_id) {
+		return adListingService.update(adListing, listing_id);
 	}
 
 	@PostMapping("/upload_csv/{dealer_id}")
@@ -60,7 +62,6 @@ public class AdLisitngController {
 		System.out.println("Uploading CSV: " + dealer_id);
 		adListingService.readFile(csvFile);
 		if (csvFile.isEmpty()) {
-			System.out.println("Empty file");
 			return null;
 		}
 		InputStream is;
@@ -69,7 +70,7 @@ public class AdLisitngController {
 			String line;
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			while ((line = br.readLine()) != null) {
-				System.out.println(line);
+				LOG.trace(line); // Here we will persist the data into DB
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -96,6 +97,6 @@ public class AdLisitngController {
 		Specification<AdListing> spec = new AdListingSpecification(searchAd);
 
 		return adListingService.getAll(spec);
-//		return adListingService.getAll();
 	}
+	
 }
