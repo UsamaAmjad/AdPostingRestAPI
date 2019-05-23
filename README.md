@@ -19,11 +19,11 @@ mvn clean test
 ```sh
  METHOD  URI 
  ------  ------ 
- GET    /search							 - Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`
+ GET    /search							- Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`
  GET	/vehicle_listings/{listing_id}	- Get AdListing by `ID`
- POST   /vehicle_listings       		  - Add new listing or update exisiting if there is same `Code` from same `Dealer`
- PUT    /vehicle_listings   			     - Update an exisiting AdListing
- POST 	/upload_csv/{dealer_id} 		   - Upload AdListing from `CSV` file 
+ POST   /vehicle_listings       		- Add new listing or update exisiting if there is same `Code` from same `Dealer`
+ PUT    /vehicle_listings   			- Update an exisiting AdListing
+ POST 	/upload_csv/{dealer_id} 		- Upload AdListing from `CSV` file 
 ```
  
 ## Docker Setup
