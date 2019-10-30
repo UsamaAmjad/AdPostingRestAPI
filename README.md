@@ -2,7 +2,7 @@
 
  **Author:** Osama Amjad 
  
- A simple Ad Listing API demostration built using `Spring Boot 2`, `Spring MVC`, `Spring Data JPA`, and `Docker`.
+ A simple Ad Listing API demostration built using `Spring Boot 2.2`, `Spring MVC`, `Spring Data JPA`, and `Docker`.
  
 ## Setup Notes
 
@@ -15,15 +15,15 @@ mvn spring-boot:run
 mvn clean test
 ```
 
- Below are the APIs that are implemented in this project. Postman API collection is included please import it for testing.
+ Below are the APIs that are implemented in this project. Postman API collection is included import it for testing.
  
  | METHOD| URI | Description |
  |-------|-----|-------------|
- |GET   | /search					| Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`|
- |GET   | /vehicle_listings/{listing_id}| Get AdListing by `ID`|
- |POST  | /vehicle_listings       		    | Add new listing or update exisiting if there is same `Code` from same `Dealer`|
- |PUT   | /vehicle_listings   			       | Update an exisiting AdListing|
- |POST 	| /upload_csv/{dealer_id} 		    | Upload AdListing from `CSV` file |
+ |GET	|	/search	|	Returns all listing order by posting time. Optional request params `make`, `model`, `year`, `color`|
+ |GET	|	/vehicle_listings/{listing_id}	|	Get AdListing by `ID`|
+ |POST	|	/vehicle_listings	|	Add new listing or update exisiting if there is same `Code` from same `Dealer`|
+ |PUT	|	/vehicle_listings	|	Update an exisiting AdListing|
+ |POST	|	/upload_csv/{dealer_id}	|	Upload AdListing from `CSV` file |
 
  
 ## Docker Setup
